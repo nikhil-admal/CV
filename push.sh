@@ -6,8 +6,7 @@ setup_git() {
 }
 
 commit_website_files() {
-    git branch
-  git checkout -b gh-pages
+  git switch --orphan gh-pages
   git add *.pdf
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }

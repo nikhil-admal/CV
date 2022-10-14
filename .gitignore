@@ -3,4 +3,6 @@
 *.aux
 .log
 .ps.pdf
+.pdf
+.ps
 
