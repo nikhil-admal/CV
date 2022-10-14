@@ -7,6 +7,10 @@ CVP:=$(shell kpsewhich cv.sty)
 CVC:=$(shell kpsewhich cv.cls)
 CVB:=$(shell kpsewhich cv.bst)
 TECH:=$(shell kpsewhich techpresents.bib)
+BASEDIR=$(CURDIR)
+OUTPUTDIR=$(BASEDIR)/output
+
+GITHUB_PAGES_BRANCH=master
 
 all:	sample.ps
 
@@ -22,6 +26,10 @@ all:	sample.ps
 			pdflatex $(basename $@).tex
 			pdflatex $(basename $@).tex
 			rm -f *.aux *.bbl *.blg *.dvi *.log
+
+github:
+	ghp-import -n $(OUTPUTDIR)
+	@git push -fq https://${GH_TOKEN}@github.com/$(TRAVIS_REPO_SLUG).git gh-pages > /dev/null
 
 .PHONY:			clean
 
