@@ -2,4 +2,5 @@
 
 # change into the desired folder
 cd $1
+make clean
 make
