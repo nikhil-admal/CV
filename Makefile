@@ -23,7 +23,7 @@ all:	sample.ps
 			latex $(basename $@).tex
 			dvips -K -t letter $(basename $@).dvi
 			ps2pdf $@
-			rm -f *.aux *.bbl *.blg *.dvi *.log
+			rm -f *.aux *.bbl *.blg *.dvi *.log *.ps
 
 .PHONY:			clean
 
