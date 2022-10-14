@@ -10,3 +10,6 @@ before_install:
 
 script:
   - bash test.sh ./ 
+
+after_failure:
+  - cat Build_*.failure.txt
