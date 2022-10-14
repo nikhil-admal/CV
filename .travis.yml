@@ -9,7 +9,7 @@ script:
 - make clean
 - make
 after_success:
-- ".travis/push.sh"
+- "./push.sh"
 env:
   global:
     secure: axh8f7+M/yd5U6urzJQ4RSmaCfmP6P3TjCZ+adMuxDICu35hpd+P+QqzgtUDu9N5x/7RuHQdZoHdkg8SO9/1lCmAXojXXpwcxGIXQzjVHg9M2jWpGBrwljTqvcQ3GitcEgmd6WVopaiANE/4aHCjYhIRLBvyuokn3qcxdVji4dw/sICCEKxfEtolATt6E+8oKlyMWtaMSHz5ZQ8+joqXwx0MuEj2n8v7X06eQ5JaAnB8A6h25Qrc4wrT8/PBG0IM4wnjRAPoa5e6Nd+m+E0tHtV1NQHGNYrOZ0lMLDhPp9nKPwDcRty6oCTIi5OlnS7qrWuMVmMvkhUcqQ6gMrPsXjCqjv2+mdHbWcO+L1b4LGmZBhpg67mFUyFcKc+Sm74yz0k8tMGSrtOnabomkWCh1/jiUApLYxtOQ/bDC4Mb+L89QFtIHOMeZ1NKF0ibGbGhyydrR/U84uFN+RyQkPYYMqx4+mM9R7GhUtlSYpW3Xa1Ynr5Ot97jBZjZEDvgJj361utwaeHJiqbAzEyvAzjF6cnmeBdJIVlTEU3RYAO9FM0bLxH2C4O41AX85C+3gvlP2tP/1B/hasG1JVGdGxwrc5s5yCUIHEV2ZX1XsA0aATZMBf0Ad/Adr80n6E3209dB6CCXqmLQ71frEIMlXU2UmI7RpLhUluUtCoqJyUvs3pI=
