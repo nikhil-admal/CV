@@ -1,0 +1,234 @@
+\documentclass[numbers]{cv}
+%
+\renewcommand{\cvtitlename}{}
+%% CV User Info
+\cvname{Nikhil Chandra Admal}
+%\cvhomeaddressA{}
+%\cvhomeaddressB{}
+%\cvhomecitystzip{}
+%\cvhomephone{}
+%\cvhomefax{}
+%\cvhomeemail{}
+%
+\cvofficeaddressA{The University of Minnesota, Department of Aerospace
+  Engineering and Mechanics}
+\cvofficeaddressB{107 Akerman Hall, 110 Union Street S. E.}
+\cvofficecitystzip{Minneapolis, MN 55455}
+\cvofficephone{(612) 963-8827}
+%\cvofficefax{}
+\cvofficeemail{admal002@umn.edu}
+%
+%
+%
+\newcommand{\printflag}{no}
+%\newcommand{\printflag}{yes}
+%
+%
+%
+\begin{document}
+
+\begin{education}
+  \universityitem{2007--Present}%
+  {The University of Minnesota}%
+  {Minneapolis, MN}%
+  {\degreeitem{Dec~2013 (expected)}%
+    {Ph.D.}%
+    {}%{8.0/9.0}%
+    {Aerospace Engineering and Mechanics}%
+    {\cvinfo[0.9in]{Dissertation:}{Results on the interaction between atomistic and continuum models}%
+      \cvinfo[0.9in]{Advisor:}{Ellad~B.~Tadmor}%
+    }%
+      \\[3pt]\begin{tabular}[t]{ll}
+        \multicolumn{2}{c}%
+        {\textit{Course-Work}}\\
+        $\succ$ Elasticity &
+        $\succ$ Advanced Continuum Mechanics\\
+        $\succ$ Thermal and Statistical Physics &
+        $\succ$ Fracture Mechanics\\
+        $\succ$ Mechanics of Crystalline Solids &
+        $\succ$ Computational Nanomechanics\\
+        \multicolumn{2}{l}%
+        {$\succ$ Multiscale Methods for Bridging Length and Time Scales}\\
+      \end{tabular}%
+  \degreeitem{Dec.~2011}%
+    {M.S.}%
+    {}%{8.0/9.0}%
+    {Mathematics}%
+    {\cvinfo{}{Concentration in Real and Functional analysis}%
+    }%
+      \\[3pt]\begin{tabular}[t]{ll}
+        \multicolumn{2}{c}%
+        {\textit{Course-Work}}\\
+        $\succ$ Real Analysis &
+        $\succ$ Functional Analysis\\
+        $\succ$ Theory of Probability including Measure Theory &
+        $\succ$ Manifolds and Topology\\
+        $\succ$ Numerical Analysis of Differential Equations &
+        $\succ$ General Algebra \\
+        \multicolumn{2}{l}%
+        {$\succ$ Theory of PDE}
+      \end{tabular}%
+    \degreeitem{Aug.~2010}%
+    {M.S.}%
+    {}%8.0/9.0}%
+    {Aerospace Engineering and Mechanics}%
+    {\cvinfo[0.9in]{Dissertation:}{A unified interpretation of stress in molecular systems}%
+     \cvinfo[0.9in]{Advisor:}{Ellad~B.~Tadmor}%
+    }%
+  }
+
+  \universityitem{2001--2006}%
+  {Indian Institute of Technology (IIT) Madras}%
+  {Chennai, TN, India}%
+  {\degreeitem{Aug.~2006}%
+    {B.Tech., M.Tech.}%
+    {}%{}%
+    {Dual Degree in Mechanical Engineering}%
+    {\cvinfo[0.6in]{Minor:}{Vibrations Concepts and Applications}%
+     \cvinfo[0.6in]{Thesis:}{Conjugate heat transfer through conical pipes and
+     Optimization of FGM in circular pipe}%
+     \cvinfo[0.6in]{Advisor:}{N. Ganesan}%
+    }%
+  }
+
+\end{education}
+
+
+\begin{researchinterests}
+  Microscopic foundations of continuum mechanics, Mathematical theory of multiscale modeling, numerical methods
+
+\end{researchinterests}
+
+\begin{employment}
+  \empitem{The University of Minnesota}%
+  {Minneapolis, MN}%
+  {\positionitem{Sept. 2007--Present}%
+    {}%
+    {Graduate Student Research Assistant}%
+    {
+        \cvbull~Investigated the microscopic foundations of continuum mechanics
+        which play a central role in multiscale methods involving the interaction
+        of atomistic and continuum models. In particular, the definition of 
+        stress in an atomistic system, which has been a subject of great
+        debate, has been extensively studied. \\
+        \cvbull~A unified interpretation of stress tensor in molecular systems
+        is given which unifies all the existing definitions, and identifies various
+        sources of non-uniqueness in the stress tensor. \\
+        \cvbull~New definitions for the heat flux vector and the energy density
+        are derived, which avoids the ambiguous decomposition of energy among
+        the particles of an atomistic system. \\
+        \cvbull~Work in progress: A relationship between the interatomic
+        potential and the residual stress is identified, which yields a unique
+        decomposition of the atomistic stress tensor into elastic and plastic
+        components. \\
+        \cvbull~Work in progress: The hot-QC method which is a finite temperature
+        version of the Quasicontinuum method is extended to model heat
+        conduction using principles of statistical mechanics.
+    }
+   \positionitem{Jan. 2007--May 2007}%
+    {}%
+    {Graduate Student Teaching Assistant}%
+    {\cvbull~Delivered recitations for 2 classes of 30 students each.}%
+    {\cvbull~Prepared and graded examinations and homeworks for the courses
+    Deformable Body Mechanics and Aerospace Structures.}%
+  }
+  \empitem{Indian Institute of Technology (IIT) Madras}%
+  {Chennai, TN, India}%
+  {\positionitem{Aug. 2005--Apr. 2006}%
+    {}%
+    {Graduate Research Assistant}%
+    {\cvbull~Study on Conjugate heat transfer in conical pipes and the nature
+    of thermal stresses developed in the pipe. Work also included studying the
+    effects of changes in design and material of the conical pipe and extending
+    it to functionally graded materials to minimize the thermal stress.}%
+    {}%
+  }
+  \empitem{Micro and Nano Structure Technology Lab, GE: John F.~ Welch
+  Technology Center}%
+  {Bangalore, Karnataka, India}%
+  {\positionitem{Apr. 2005--Jul. 2005}%
+    {}%
+    {Intern}%
+    {\cvbull~Designed a differential pressure based MEMS flow sensor for
+    anaesthesia delivery systems under Mr.~Balu Sarma. The work also included
+    modelling the fluid structure interaction in this device using ANSYS and
+    COVENTOR (software for micro fluidics), in collaboration with the  MEMS group.}
+    {\cvbull~Used Surface Plasmon Resonance (SPR), an optical technique to design
+    an SPR sensor for sensing analytes like phosphate in water, and elemental
+    mercury in power plants.}
+  }
+
+\end{employment}
+
+
+\begin{honors}
+  \honoritem{2012--2013}
+  {Doctoral Dissertation Fellowship}
+  {University of Minnesota, Minneapolis, MN}
+  \honoritem{2007}
+  {Summer Fellowship}
+  {Aerospace Engineering and Mechanics, Minneapolis, MN}
+  \honoritem{2005}
+  {Inventor Bonus Award}
+  {GE: John~F.~Welch Technology Center, Bangalore, India}
+  \honoritem{2005}
+  {Best Outgoing Intern}
+  {awarded by GIPLO Lab, GE: John~F.~Welch Technology Center, Bangalore, India}
+  \honoritem{2004}
+  {Percentile of 98.19 in Graduate Aptitude Test in Engineering (GATE) 2004}
+  {India}
+  \honoritem{2001--2005}%
+  {Pratibha scholarship}%
+  {State government of Andhra Pradesh, India}
+  \honoritem{2001}%
+  {Ranked 1081 in IIT Joint Entrance Examination among over 200,000 aspirants}%
+  {}
+\end{honors}
+
+
+\begin{journalpubs}{journals.full,citations}
+  \nocite{admal2010}
+  \nocite{admal2011}
+  \nocite{admal:tadmor:scale:2011}
+  \nocite{admal:tadmor:qc:2011}
+\end{journalpubs}
+
+\begin{techpresents}{techpresents}
+  \nocite{admal:tadmor:2010:USNCTAM}
+  \nocite{admal:tadmor:2011:FREUND}
+  \nocite{admal:tadmor:2011:USNCCM}
+  \nocite{admal:tadmor:2013:SES}
+  \nocite{admal:tadmor:2013:IPAM}
+  \nocite{admal:tadmor:2013:CALTECH}
+\end{techpresents}
+
+\begin{chapters}{journals.full,citations}
+  \nocite{admal:tadmor:book:2010}
+\end{chapters}
+
+\begin{patents}{citations}
+  \nocite{admal:aradhya:1}
+  \nocite{admal:aradhya:2}
+\end{patents}
+
+\vspace{-.125cm}
+\begin{skills}
+  \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+      T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+  \skillitem{Software:}{Unix/Linux, Windows, Matlab,
+    Mathematica, perl, Fortran, C, C++,
+    \LaTeX, \BibTeX, Asymptote, GNUplot, ANSYS, AutoCad}%
+
+\end{skills}
+\begin{references}
+    \newline
+    \begin{tabular}[t]{l l l} 
+    Ellad~B.~Tadmor       & Richard~D.~James        & Roger~Fosdick         \\ 
+    110 Union Stree S.E.  & 110 Union Street S.E.   & 110 Union Street S.E. \\
+    Minneapolis, MN 55414 & Minneapolis, MN 55414   & Minneapolis, MN 55414 \\ 
+    (612) 625-6642        & (612) 625-0706                                  \\
+    tadmor@aem.umn.edu    & james@aem.umn.edu       & fosdick@aem.umn.edu 
+    \end{tabular}
+\end{references}
+\end{document}
