@@ -1,0 +1,824 @@
+% cv.sty -- package file for a curriculum_vitae
+% Ryan Elliott
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Identification
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}[1994/12/01]
+\ProvidesPackage{cv}[2006/05/10 v3 curriculum vitae package]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Initial Code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CV shortcut commands
+%
+\newcommand{\cvbullleft}{\ensuremath{\scriptstyle\blacktriangleright}}
+\newcommand{\cvbullright}{\ensuremath{\scriptstyle\blacktriangleleft}}
+\newcommand{\cvbull}{\cvbullleft}
+\newcommand{\cvdagger}{{\large\textdagger}}
+\newcommand{\cvinvited}{\cvdagger}
+\newcommand{\cvpaperbull}{}
+\newcommand{\cvpaperbullinvited}{}
+\newcounter{cvpapercount}\stepcounter{cvpapercount}
+\newcommand{\EMPTY}{\item}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CV Strings
+%
+\newcommand{\cvtitlename}{Curriculum~Vitae}
+\newcommand{\cvresearchinterests}{Research~and~Teaching~Interests}
+\newcommand{\cveducation}{Education}
+\newcommand{\cvteaching}{Teaching~Experience}
+\newcommand{\cvfellows}{Fellowships/Scholarships}
+\newcommand{\cvemployment}{Employment}
+\newcommand{\cvpemployment}{Previous Employment}
+\newcommand{\cvhonors}{Honors~and~Awards}
+\newcommand{\cvtravelgrant}{Travel~Grants}
+\newcommand{\cvjournalpubs}{Journal~Articles}
+\newcommand{\cvtechpubs}{Technical~Publications}
+\newcommand{\cvinvitedtalks}{Invited~Talks}
+\newcommand{\cvtechpresents}{Technical~Presentations}
+\newcommand{\cvpatents}{Patents}
+\newcommand{\cvsoftware}{Software}
+\newcommand{\cvchapters}{Book Chapters}
+\newcommand{\cvproforgs}{Professional~Organizations}
+\newcommand{\cvservice}{Professional~Service~Activities}
+\newcommand{\cvskills}{Relevant~Skills}
+\newcommand{\cvhobbies}{Activities}
+\newcommand{\cvreferences}{References}
+\newcommand{\cvstudents}{Students~Mentored}
+\newcommand{\cvconsulting}{Consulting}
+\newcommand{\cvinternalfunding}{Internal~University~Funding}
+\newcommand{\cvexternalfunding}{External~Funding}
+\newcommand{\cvcontinued}[1]{#1~(\emph{Continued})}
+%
+\newcommand{\cvhomename}{Residence:}
+\newcommand{\cvofficename}{Office:}
+\newcommand{\cvphonename}{Phone:}
+\newlength{\cvphonewid}\settowidth{\cvphonewid}{\cvphonename}
+\newcommand{\cvfaxname}{\protect\makebox[\cvphonewid][l]{Fax:}}
+\newcommand{\cvemailname}{email:}
+\newcommand{\cvwebname}{Webpage:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% cv Lengths
+%
+\newlength{\cvinforulewidth}
+\newlength{\cvinforulelength}
+\newlength{\cvdatenone}
+\newlength{\cvdatewidth}
+\newlength{\cvjournalident}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Option Declarations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareOption{bullets}{%
+  \renewcommand{\cvpaperbull}{\cvbull}%
+  \renewcommand{\cvpaperbullinvited}{\cvdagger}}
+\DeclareOption{numbers}{%
+  \renewcommand{\cvpaperbull}{\thecvpapercount}
+  \renewcommand{\cvpaperbullinvited}{\thecvpapercount$^\dagger$}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Option Execution
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ExecuteOptions{bullets}
+\ProcessOptions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Package Loading
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{calc}
+\RequirePackage{ifthen}
+\RequirePackage{fancyheadings}
+\RequirePackage{bibunits}
+\RequirePackage[authoryear]{natbib}
+\RequirePackage{amssymb}
+\RequirePackage{extramarks}
+\RequirePackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Main Code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Set Lengths
+%
+\setlength{\cvinforulelength}{\headrulewidth}
+\setlength{\cvinforulewidth}{\textwidth}
+\settowidth{\cvdatenone}{}
+\settowidth{\cvdatewidth}{888.88888--888.88888,}
+\settowidth{\cvjournalident}{8888}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Personal Information commands
+%
+\newcommand{\cvheader}{\setlength{\cvinforulewidth}{\textwidth}\makecvuserinfo}
+%
+\newcommand{\thecvname}{Put Name Here}
+\newcommand{\thecvhomeaddressA}{}
+\newcommand{\thecvhomeaddressB}{}
+\newcommand{\thecvhomecitystzip}{}
+\newcommand{\thecvofficeaddressA}{Put Office Address Here}
+\newcommand{\thecvofficeaddressB}{}
+\newcommand{\thecvofficecitystzip}{City, ST 88888}
+\newcommand{\thecvhomephone}{}
+\newcommand{\thecvofficephone}{}
+\newcommand{\thecvhomefax}{}
+\newcommand{\thecvofficefax}{}
+\newcommand{\thecvhomeemail}{}
+\newcommand{\thecvofficewebpage}{}
+\newcommand{\thecvofficeemail}{}
+%
+\newcommand{\cvname}[1]{\renewcommand{\thecvname}{#1}}
+\newcommand{\cvhomeaddressA}[1]{\renewcommand{\thecvhomeaddressA}{#1}}
+\newcommand{\cvhomeaddressB}[1]{\renewcommand{\thecvhomeaddressB}{#1}}
+\newcommand{\cvhomecitystzip}[1]{\renewcommand{\thecvhomecitystzip}{#1}}
+\newcommand{\cvofficeaddressA}[1]{\renewcommand{\thecvofficeaddressA}{#1}}
+\newcommand{\cvofficeaddressB}[1]{\renewcommand{\thecvofficeaddressB}{#1}}
+\newcommand{\cvofficecitystzip}[1]{\renewcommand{\thecvofficecitystzip}{#1}}
+\newcommand{\cvhomephone}[1]{\renewcommand{\thecvhomephone}{\cvphonename~#1}}
+\newcommand{\cvofficephone}[1]{\renewcommand{\thecvofficephone}{\cvphonename~#1}}
+\newcommand{\cvhomefax}[1]{\renewcommand{\thecvhomefax}{\cvfaxname~#1}}
+\newcommand{\cvofficefax}[1]{\renewcommand{\thecvofficefax}{\cvfaxname~#1}}
+\newcommand{\cvhomeemail}[1]{\renewcommand{\thecvhomeemail}{\cvemailname~#1}}
+\newcommand{\cvofficeemail}[1]{\renewcommand{\thecvofficeemail}{\cvemailname~#1}}
+\newcommand{\cvofficewebpage}[1]{\renewcommand{\thecvofficewebpage}{\cvwebname~\url{#1}}}
+%
+\newcommand{\makecvuserinfo}{%
+  \newlength{\cvaddresslenA}%
+  \newlength{\cvaddresslenB}%
+  \newlength{\cvaddresslenC}%
+  \begin{center}%
+    \Large\textbf{\thecvname}\normalsize\\%
+    \ifthenelse{\equal{\cvtitlename}{}}{}{%
+      \small \vspace{0.5em}%
+      \cvtitlename\\}%
+    \rule{\cvinforulewidth}{\cvinforulelength}\\%
+  \end{center}%
+  \begin{center}
+    \begin{minipage}[t]{\cvinforulewidth}%
+      \begin{center}
+        \settowidth{\cvaddresslenA}{\thecvhomeaddressA}%
+        \settowidth{\cvaddresslenB}{\thecvhomeaddressB}%
+        \ifthenelse{\lengthtest{\cvaddresslenB > \cvaddresslenA}}{%
+          \setlength{\cvaddresslenA}{\cvaddresslenB}}{}%
+        \settowidth{\cvaddresslenB}{\thecvhomecitystzip}%
+        \ifthenelse{\lengthtest{\cvaddresslenB > \cvaddresslenA}}{%
+          \setlength{\cvaddresslenA}{\cvaddresslenB}}{}%
+        \settowidth{\cvaddresslenB}{\thecvhomephone}%
+        \ifthenelse{\lengthtest{\cvaddresslenB > \cvaddresslenA}}{%
+          \setlength{\cvaddresslenA}{\cvaddresslenB}}{}%
+        \settowidth{\cvaddresslenB}{\thecvhomefax}%
+        \ifthenelse{\lengthtest{\cvaddresslenB > \cvaddresslenA}}{%
+          \setlength{\cvaddresslenA}{\cvaddresslenB}}{}%
+        \settowidth{\cvaddresslenB}{\thecvhomeemail}%
+        \ifthenelse{\lengthtest{\cvaddresslenB > \cvaddresslenA}}{%
+          \setlength{\cvaddresslenA}{\cvaddresslenB}}{}%
+        \setlength{\cvaddresslenC}{\cvaddresslenA}%
+        \ifthenelse{\lengthtest{\cvaddresslenA > 0pt}}{%
+          \cvhomename\hspace{1em}%
+          \parbox[t]{\cvaddresslenA}{%
+            \thecvhomeaddressA%
+            \ifthenelse{\equal{\thecvhomeaddressB}{}}{\relax}{\\\thecvhomeaddressB}%
+            \\\thecvhomecitystzip%
+            \ifthenelse{\equal{\thecvhomephone}{}}{\relax}{\\\thecvhomephone}%
+            \ifthenelse{\equal{\thecvhomefax}{}}{\relax}{\\\thecvhomefax}%
+            \ifthenelse{\equal{\thecvhomeemail}{}}{\relax}{\\\thecvhomeemail}%
+          }%
+          \hfill%
+        }{}%
+        \settowidth{\cvaddresslenB}{\thecvofficeaddressA}%
+        \settowidth{\cvaddresslenA}{\thecvofficeaddressB}%
+        \ifthenelse{\lengthtest{\cvaddresslenA > \cvaddresslenB}}{%
+          \setlength{\cvaddresslenB}{\cvaddresslenA}}{}%
+        \settowidth{\cvaddresslenA}{\thecvofficecitystzip}%
+        \ifthenelse{\lengthtest{\cvaddresslenA > \cvaddresslenB}}{%
+          \setlength{\cvaddresslenB}{\cvaddresslenA}}{}%
+        \settowidth{\cvaddresslenA}{\thecvofficephone}%
+        \ifthenelse{\lengthtest{\cvaddresslenA > \cvaddresslenB}}{%
+          \setlength{\cvaddresslenB}{\cvaddresslenA}}{}%
+        \settowidth{\cvaddresslenA}{\thecvofficefax}%
+        \ifthenelse{\lengthtest{\cvaddresslenA > \cvaddresslenB}}{%
+          \setlength{\cvaddresslenB}{\cvaddresslenA}}{}%
+        %
+        \settowidth{\cvaddresslenA}{\thecvofficewebpage}%
+        \ifthenelse{\lengthtest{\cvaddresslenA > \cvaddresslenB}}{%
+          \setlength{\cvaddresslenB}{\cvaddresslenA}}{}%
+        %
+        \settowidth{\cvaddresslenA}{\thecvofficeemail}%
+        \ifthenelse{\lengthtest{\cvaddresslenA > \cvaddresslenB}}{%
+          \setlength{\cvaddresslenB}{\cvaddresslenA}}{}%
+        \ifthenelse{\lengthtest{\cvaddresslenC > 0pt}}{%
+          \cvofficename\hspace{1em}%
+          \parbox[t]{\cvaddresslenB}}{}%
+        {%
+          \thecvofficeaddressA%
+          \ifthenelse{\equal{\thecvofficeaddressB}{}}{\relax}{\\\thecvofficeaddressB}%
+          \\\thecvofficecitystzip%
+          \ifthenelse{\equal{\thecvofficephone}{}}{\relax}{\\\thecvofficephone}%
+          \ifthenelse{\equal{\thecvofficefax}{}}{\relax}{\\\thecvofficefax}%
+          \ifthenelse{\equal{\thecvofficeemail}{}}{\relax}{\\\thecvofficeemail}%
+          %
+          \ifthenelse{\equal{\thecvofficewebpage}{}}{\relax}{\\\thecvofficewebpage}%
+          %
+        }%
+      \end{center}
+    \end{minipage}%
+  \end{center}%
+  \rule{\cvinforulewidth}{\cvinforulelength}%
+  \vspace*{0.25\headsep}%
+  }%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Font definitions
+%
+\newcommand{\cvheading}[1]{{\textbf{\large #1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% List Environment for cv
+%
+% usage: \begin{cvlist}[default_label]
+%           {label_width}
+%           {non-standard list settings}
+%
+\newcommand{\cvsectstart}[1]{\noindent\cvheading{#1}\nopagebreak%
+  \extramarks{#1}{}%
+  \extramarks{\cvcontinued{#1}}{}}
+
+\newcommand{\cvsectend}[1]{\extramarks{\cvcontinued{#1}}{}\vspace{5pt}}
+%
+\newenvironment{cvlist}[3][]{%
+  \begin{list}{#1}{%
+      \renewcommand{\makelabel}[1]{##1\hfil}%
+      \setlength{\topsep}{3pt}%
+      \setlength{\labelsep}{1em}%
+      \setlength{\labelwidth}{#2}%
+      \setlength{\leftmargin}{\labelwidth+\labelsep}%
+      #3}}%
+  {\end{list}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Lengths and saveboxes needed for environments & commands
+%
+\newlength{\cvtemplen}
+\newlength{\cvheaderlen}
+\newlength{\cvemptylen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Information command with optional label and hanging paragraph
+%
+% usage: \cvinfo[length]{label}{info text}
+% usage: \cvInfo[length]{label}{info text} (no newline)
+%
+\newcommand{\cvinfo}[3][]{%
+  \ifthenelse{\equal{}{#1}}{%
+    \settowidth{\cvtemplen}{\textit{#2}}}%
+  {\setlength{\cvtemplen}{#1}}%
+  \\[\parskip]\parbox[t]{\cvtemplen}{\textit{#2}}%
+  \parbox[t]{\linewidth-\cvtemplen}{#3}}%
+\newcommand{\cvInfo}[3][]{%
+  \ifthenelse{\equal{#1}{}}{%
+    \settowidth{\cvtemplen}{\textit{#2}}}%
+  {\setlength{\cvtemplen}{#1}}%
+  \parbox[t]{\cvtemplen}{\textit{#2}}%
+  \parbox[t]{\linewidth-\cvtemplen}{#3}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Research Interests environment
+%
+\newenvironment{researchinterests}{%
+  \providecommand{\resinterest}[2][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[\textit{Research:}] ##2}{\relax}}%
+  \providecommand{\teachinterest}[2][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[\textit{Teaching:}] ##2}{\relax}}%
+  \cvsectstart{\cvresearchinterests}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+    \begin{cvlist}{\cvdatewidth}{%
+        \setlength{\itemsep}{7pt}%
+        }%
+      }%
+    {\end{cvlist}\end{cvlist}\cvsectend{\cvresearchinterests}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Education environment
+%
+% usage: \universityitem[print]{to--from date}
+%            {university}
+%            {location}
+%            {degreeitems}
+%
+% usage: \degreeitem[honors]{date}
+%            {degree}
+%            {GPA}
+%            {subject}
+%            {description}
+%
+\newenvironment{education}{%
+  \newlength{\cveducationitemsep}%
+  \setlength{\cveducationitemsep}{10pt}%
+  \renewcommand{\EMPTY}{\item}%
+  \providecommand{\universityitem}[5][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\settowidth{\cvtemplen}{{\large##3}, ##4, ##2}%
+      \ifthenelse{\lengthtest{\cvtemplen > \linewidth}}%
+      {\item {\large##3}\\\space*{\fill}##4%
+        \ifthenelse{\equal{}{##2}}{}{, ##2}}%
+      {\item {\large##3}, ##4%
+        \ifthenelse{\equal{}{##2}}{}{, ##2}}%
+      \begin{cvlist}{\cvdatewidth}{\setlength{\itemsep}{\cveducationitemsep}}##5\end{cvlist}}%
+    {\relax}}%
+  \providecommand{\degreeitem}[6][]{%
+   \item[##2] \textbf{##3} \textit{##5}%
+    \ifthenelse{\equal{##4}{}}{\relax}{, \textit{GPA:} ##4}%
+    \ifthenelse{\equal{##1}{}}{\relax}{, ##1}%
+    \ifthenelse{\equal{##6}{}}{\relax}{##6}}%
+  \cvsectstart{\cveducation}%
+  \begin{cvlist}{\cvdatenone}{\setlength{\itemsep}{7pt}}}%
+  {\end{cvlist}\cvsectend{\cveducation}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Teaching Experience environment
+%
+% usage: \institutionitem[print]
+%            {institution}
+%            {location}
+%            {positionitems}
+%
+% usage: \positionitem[print]{to--from date}
+%            {position name}
+%            {department}
+%            {description}
+%
+\newenvironment{teaching}{%
+  \renewcommand{\EMPTY}{\setlength{\cvemptylen}{-5\topsep-5\parskip-5\partopsep}%
+    \vspace*{\cvemptylen}}%
+  \providecommand{\institutionitem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\settowidth{\cvtemplen}{{\large##2}, ##3}%
+      \ifthenelse{\lengthtest{\cvtemplen > \linewidth}}%
+      {\item {\large##2}\\\hspace*{\fill}##3}%
+      {\item {\large##2}, ##3}%
+      \begin{cvlist}{\cvdatewidth}{}%
+        ##4\end{cvlist}}%
+    {\relax}}%
+  \providecommand{\positionitem}[5][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textbf{##3}\ifthenelse{\equal{##4}{}}{}{, ##4}%
+      \begin{cvlist}{\cvdatenone}{\setlength{\leftmargin}{0pt}}%
+       \item ##5 \end{cvlist}}%
+    {\relax}}%
+  \cvsectstart{\cvteaching}%
+  \begin{cvlist}{\cvdatenone}{\setlength{\itemsep}{10pt}}}%
+  {\end{cvlist}\cvsectend{\cvteaching}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% students environment
+%
+% usage: \studentlevelitem[print]
+%           {level name}
+%           {studentitems}
+% usage: \studentitem[print]
+%            {Name}
+%            {Major}
+%            {title}
+%            {comments}
+%            {date}
+%
+\newenvironment{students}{%
+  \renewcommand{\EMPTY}{\setlength{\cvemptylen}{-3\topsep-3\parskip-3\partopsep}%
+    \vspace*{\cvemptylen}}%
+  \providecommand{\studentlevelitem}[3][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item {\large##2}%
+      \ifthenelse{\equal{##3}{}}{\relax}{%
+        \begin{cvlist}{\cvdatewidth}{}%
+          ##3%
+        \end{cvlist}}}%
+    {\relax}}%
+  \providecommand{\studentitem}[6][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] %
+      \ifthenelse{\equal{##3}{}}{\relax}{##3.} %
+      \ifthenelse{\equal{##4}{}}{\relax}{Thesis title:~\textit{##4}}%
+      \ifthenelse{\equal{##5}{}}{\relax}{##5}%
+      \ifthenelse{\equal{##6}{}}{\relax}{, ##6.}}%
+    {\relax}}%
+  \cvsectstart{\cvstudents}%
+  \begin{cvlist}{\cvdatenone}{}}%
+  {\end{cvlist}\cvsectend{\cvstudents}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Fellowships/Scholarships environment
+%
+% usage: \fellowitem[print]{date}%
+%           {title}
+%           {Affiliation}
+%
+\newenvironment{fellowships}{%
+  \providecommand{\fellowitem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textit{##3}, ##4}%
+    {\relax}}%
+  \cvsectstart{\cvfellows}%
+  \begin{cvlist}{\cvdatenone}\item%
+    \begin{cvlist}{\cvdatewidth}{\setlength{\itemsep}{0pt}}}%
+    {\vspace*{\parskip}\end{cvlist}\end{cvlist}\cvsectend{\cvfellows}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Employment environment
+%
+% usage: \empitem[print]
+%           {company}
+%           {location}
+%           {positionitems}
+%        \positionitem[print]{to--from date}
+%           {full/part/etc time}
+%           {title}
+%           {description}
+%
+\newenvironment{employment}{%
+  \renewcommand{\EMPTY}{\setlength{\cvemptylen}{-3\topsep-3\parskip-3\partopsep}%
+    \vspace*{\cvemptylen}}%
+  \providecommand{\empitem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item {\large##2}, ##3%
+      \ifthenelse{\equal{##4}{}}{\relax}{%
+        \begin{cvlist}{\cvdatewidth}{}%
+          ##4%
+        \end{cvlist}}}%
+    {\relax}}%
+  \providecommand{\positionitem}[5][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textbf{##4}%
+      \ifthenelse{\equal{##3}{}}{\relax}{, ##3}%
+      \ifthenelse{\equal{##5}{}}{\relax}{%
+        \begin{cvlist}{\cvdatenone}{\setlength{\leftmargin}{0pt}}%
+         \item ##5 \end{cvlist}}}%
+    {\relax}}%
+  \cvsectstart{\cvemployment}%
+  \begin{cvlist}{\cvdatenone}{}}%
+  {\end{cvlist}\cvsectend{\cvemployment}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Previous Employment environment
+%
+% usage: \empitem[print]
+%           {company}
+%           {location}
+%           {positionitems}
+%        \positionitem[print]{to--from date}
+%           {full/part/etc time}
+%           {title}
+%           {description}
+%
+\newenvironment{pemployment}{%
+  \renewcommand{\EMPTY}{\setlength{\cvemptylen}{-3\topsep-3\parskip-3\partopsep}%
+    \vspace*{\cvemptylen}}%
+  \providecommand{\empitem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item {\large##2}, ##3%
+      \ifthenelse{\equal{##4}{}}{\relax}{%
+        \begin{cvlist}{\cvdatewidth}{}%
+          ##4%
+        \end{cvlist}}}%
+    {\relax}}%
+  \providecommand{\positionitem}[5][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textbf{##4}%
+      \ifthenelse{\equal{##3}{}}{\relax}{, ##3}%
+      \ifthenelse{\equal{##5}{}}{\relax}{%
+        \begin{cvlist}{\cvdatenone}{\setlength{\leftmargin}{0pt}}%
+         \item ##5 \end{cvlist}}}%
+    {\relax}}%
+  \cvsectstart{\cvpemployment}%
+  \begin{cvlist}{\cvdatenone}{}}%
+  {\end{cvlist}\cvsectend{\cvpemployment}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Honors environment
+%
+% usage: \honoritem[print]{date}%
+%           {Name/info}
+%           {everything else}
+%
+\newenvironment{honors}{%
+  \providecommand{\honoritem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textsl{##3}\ifthenelse{\equal{##4}{}}{}{, ##4}}%
+    {\relax}}%
+  \cvsectstart{\cvhonors}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+    \begin{cvlist}{\cvdatewidth}{}}%
+    {\end{cvlist}\end{cvlist}\cvsectend{\cvhonors}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Travel grant environment
+%
+% usage: \travelitem[print]{date}%
+%           {Name/info}
+%           {everything else}
+%
+\newenvironment{travelgrant}{%
+  \providecommand{\travelitem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textsl{##3}\ifthenelse{\equal{##4}{}}{}{, ##4}}%
+    {\relax}}%
+  \cvsectstart{\cvtravelgrant}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+    \begin{cvlist}{\cvdatewidth}{}}%
+    {\end{cvlist}\end{cvlist}\cvsectend{\cvtravelgrant}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Consulting environment
+%
+% usage: \consultitem[print]{date}%
+%           {Name/info}
+%           {everything else}
+%
+\newenvironment{consulting}{%
+  \providecommand{\consultitem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textsl{##3}\ifthenelse{\equal{##4}{}}{}{, ##4}}%
+    {\relax}}%
+  \cvsectstart{\cvconsulting}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+    \begin{cvlist}{\cvdatewidth}{}}%
+    {\end{cvlist}\end{cvlist}\cvsectend{\cvconsulting}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Internal Funding environment
+%
+% usage: \internalfundingitem[print]{date(s)}%
+%           {dollars}
+%           {agency}
+%           {program}
+%           {title}
+%           {co-pi(s)}
+%
+\newenvironment{internalfunding}{%
+  \providecommand{\internalfundingitem}[7][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\parbox[t]{0.22\textwidth}{##4}\hspace{.25cm}%
+      \parbox[t]{0.62\textwidth}{\textit{##5}, %
+        \ifthenelse{\equal{##6}{}}{\relax}{``##6,'' }%
+        \ifthenelse{\equal{##7}{}}{\relax}{with ##7,} ##2.}\hspace{.25cm}%
+      \parbox[t]{0.1\textwidth}{\hfill\$##3}\\}%
+    {\relax}}%
+  \cvsectstart{\cvinternalfunding}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+    \parbox[t]{0.22\textwidth}{\textbf{Agency}}\hspace{.25cm}%
+    \parbox[t]{0.62\textwidth}{\textbf{Topic and Date of Award}}\hspace{.25cm}%
+    \parbox[t]{0.1\textwidth}{\hfill\textbf{Amount}}\\%
+  }%
+  {\end{cvlist}\cvsectend{\cvinternalfunding}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% External Funding environment
+%
+% usage: \externalfundingitem[print]{date(s)}%
+%           {dollars}
+%           {agency}
+%           {program}
+%           {title}
+%           {co-pi(s)}
+%
+\newenvironment{externalfunding}{%
+  \providecommand{\externalfundingitem}[7][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\parbox[t]{0.22\textwidth}{##4}\hspace{.25cm}%
+      \parbox[t]{0.62\textwidth}{\textit{##5}, %
+        \ifthenelse{\equal{##6}{}}{\relax}{``##6,'' }%
+        \ifthenelse{\equal{##7}{}}{\relax}{with ##7,} ##2.}\hspace{.25cm}%
+      \parbox[t]{0.1\textwidth}{\hfill\$##3}\\}%
+    {\relax}}%
+  \cvsectstart{\cvexternalfunding}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+    \parbox[t]{0.22\textwidth}{\textbf{Agency}}\hspace{.25cm}%
+    \parbox[t]{0.62\textwidth}{\textbf{Topic and Date of Award}}\hspace{.25cm}%
+    \parbox[t]{0.1\textwidth}{\hfill\textbf{Amount}}\\%
+  }%
+  {\end{cvlist}\cvsectend{\cvexternalfunding}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Professional Organizations environment
+%
+% usage: \orgitem[print]
+%           {name}
+%           {everything else}
+%
+\newenvironment{proforgs}{%
+  \providecommand{\orgitem}[3][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item ##2##3}%
+    {\relax}}%
+  \cvsectstart{\cvproforgs}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+    \begin{cvlist}{\cvdatewidth}{\setlength{\itemsep}{0pt}}}%
+    {\end{cvlist}\end{cvlist}\cvsectend{\cvproforgs}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Professional Service Activities
+% 
+%
+% usage: \serviceitem[print]
+%           {Organization}
+%           {eventitems}
+%        \eventitem[print]{to--from date}
+%           {title}
+%           {description}
+%
+\newenvironment{service}{%
+  \renewcommand{\EMPTY}{\setlength{\cvemptylen}{-3\topsep-3\parskip-3\partopsep}%
+    \vspace*{\cvemptylen}}%
+  \providecommand{\serviceitem}[3][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item {\large##2}%
+      \ifthenelse{\equal{##3}{}}{\relax}{%
+        \begin{cvlist}{\cvdatewidth}{}%
+          ##3%
+        \end{cvlist}}}%
+    {\relax}}%
+  \providecommand{\eventitem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textbf{##3}%
+      \ifthenelse{\equal{##4}{}}{\relax}{%
+        \begin{cvlist}{\cvdatenone}{\setlength{\leftmargin}{0pt}}%
+         \item ##4 \end{cvlist}}}%
+    {\relax}}%
+  \cvsectstart{\cvservice}%
+  \begin{cvlist}{\cvdatenone}{}}%
+  {\end{cvlist}\cvsectend{\cvservice}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Journal Publications environment
+%
+% usage: \nocite{key}
+%
+\newenvironment{journalpubs}[1]{%
+  \cvsectstart{\cvjournalpubs}%
+  \let\thebibliography\cvthebibliography%
+  \begin{bibunit}[cv]\putbib[#1]\setcounter{cvpapercount}{1}}%
+  {\end{bibunit}%
+  \let\thebibliography\origthebibliography%
+  \cvsectend{\cvjournalpubs}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Technical Publications environment
+%
+% usage: \nocite{key}
+%
+\newenvironment{techpubs}[1]{%
+  \cvsectstart{\cvtechpubs}%
+  \let\thebibliography\cvthebibliography%
+  \begin{bibunit}[cv]\putbib[#1]\setcounter{cvpapercount}{1}}%
+  {\end{bibunit}%
+  \let\thebibliography\origthebibliography%
+  \cvsectend{\cvtechpubs}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Patents environment
+%
+% usage: \nocite{key}
+%
+\newenvironment{patents}[1]{%
+  \cvsectstart{\cvpatents}%
+  \let\thebibliography\cvthebibliography%
+  \begin{bibunit}[cv]\putbib[#1]\setcounter{cvpapercount}{1}}%
+  {\end{bibunit}%
+  \let\thebibliography\origthebibliography%
+  \cvsectend{\cvpatents}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Software environment
+%
+% usage: \nocite{key}
+%
+\newenvironment{software}[1]{%
+  \cvsectstart{\cvsoftware}%
+  \let\thebibliography\cvthebibliography%
+  \begin{bibunit}[cv]\putbib[#1]\setcounter{cvpapercount}{1}}%
+  {\end{bibunit}%
+  \let\thebibliography\origthebibliography%
+  \cvsectend{\cvsoftware}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Chapters environment
+%
+% usage: \nocite{key}
+%
+\newenvironment{chapters}[1]{%
+  \cvsectstart{\cvchapters}%
+  \let\thebibliography\cvthebibliography%
+  \begin{bibunit}[cv]\putbib[#1]\setcounter{cvpapercount}{1}}%
+  {\end{bibunit}%
+  \let\thebibliography\origthebibliography%
+  \cvsectend{\cvchapters}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Invited Talks environment
+%
+% usage: \nocite{key}
+%
+\newenvironment{invitedtalks}[1]{%
+  \renewcommand{\cvpaperbullinvited}{\cvpaperbull}%
+  \cvsectstart{\cvinvitedtalks}%
+  \let\thebibliography\cvthebibliography%
+  \begin{bibunit}[cv]\putbib[#1]\setcounter{cvpapercount}{1}}%
+  {\end{bibunit}%
+  \let\thebibliography\origthebibliography%
+  \renewcommand{\cvpaperbullinvited}{\cvdagger}
+  \cvsectend{\cvinvitedtalks}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Technical Presentations environment
+%
+% usage: \nocite{key}
+%
+\newenvironment{techpresents}[1]{%
+  \cvsectstart{\cvtechpresents} \hfill%
+  %{\footnotesize (\cvinvited --- indicates invited presentation)}%
+  \let\thebibliography\cvthebibliography%
+  \begin{bibunit}[cv]\putbib[#1]\setcounter{cvpapercount}{1}}%
+  {\end{bibunit}%
+  \let\thebibliography\origthebibliography%
+  \cvsectend{\cvtechpresents}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% skills environment
+%
+% usage: \skillitem[print]
+%          {label}
+%          {info}
+%
+\newenvironment{skills}{%
+  \providecommand{\skillitem}[3][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[\textit{##2}] ##3}{\relax}}%
+  \cvsectstart{\cvskills}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+  \begin{cvlist}{\cvdatewidth}{%
+      \setlength{\itemsep}{0pt}%
+      \setlength{\parsep}{0pt}%
+      }%
+    }%
+  {\end{cvlist}\end{cvlist}\cvsectend{\cvskills}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Hobbies command
+%
+\newcommand{\hobbies}[2][yes]{%
+  \ifthenelse{\equal{#1}{yes}}%
+  {\cvsectstart{\cvhobbies}%
+    \begin{cvlist}{\cvdatenone}{}%
+     \item #2%
+    \end{cvlist}\cvsectend{\cvhobbies}}%
+  {\relax}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% References command
+%
+\newcommand{\references}{%
+   \cvsectstart{\cvreferences}%
+  % \begin{cvlist}{\cvdatenone}{}%
+  %  \item Professional references, transcripts, and other information %
+  %   available upon request%
+  % \end{cvlist}\cvsectend{\cvreferences}}%
+  \cvsectend{\cvreferences}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Redefinition of thebibilography environment
+% - taken directly from the article class file
+% - and modified to NOT use a section call or
+% - typeset a heading...
+%
+\let\origthebibliography\thebibliography
+
+\newenvironment{cvthebibliography}[1]{%
+  \list{\@biblabel{\@arabic\c@enumiv}}%
+  {%\settowidth\labelwidth{\@biblabel{#1}}%
+    \setlength\labelwidth{\cvjournalident}%
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \@openbib@code
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty \clubpenalty
+  \widowpenalty4000%
+  \sfcode`\.\@m}%
+{\def\@noitemerr
+  {\@latex@warning{Empty `cvthebibliography' environment}}%
+  \endlist}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% LocalWords:  cv cls pt calc ifthen fancyheadings lastpage bibunits amssymb em
+% LocalWords:  saveboxes degreeitems positionitems thebibilography enumiv sty
+% LocalWords:  thebibliography AtBeginDocument eventitems cvthebibliography
