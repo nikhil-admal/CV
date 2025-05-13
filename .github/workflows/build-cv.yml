@@ -1,0 +1,42 @@
+name: Build and Deploy CV
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install LaTeX packages
+      run: |
+        sudo apt-get update -qq
+        sudo apt-get install -y \
+          texlive-base \
+          texlive-latex-base \
+          texlive-latex-extra \
+          texlive-fonts-recommended \
+          texlive-fonts-extra
+
+    - name: Clean and build PDF
+      run: |
+        make clean
+        make
+
+    - name: Deploy PDF to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .          # Adjust if your PDF is in a subfolder
+        publish_branch: gh-pages
+        keep_files: true        # Optional: keep existing files
+        destination_dir: .      # Optional: root of the gh-pages branch
+        enable_jekyll: false    # Prevents GitHub Pages from ignoring PDF
+
