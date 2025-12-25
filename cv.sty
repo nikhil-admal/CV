@@ -33,6 +33,7 @@
 \newcommand{\cvemployment}{Employment}
 \newcommand{\cvpemployment}{Previous Employment}
 \newcommand{\cvhonors}{Honors~and~Awards}
+\newcommand{\cvgrant}{Grants}
 \newcommand{\cvtravelgrant}{Travel~Grants}
 \newcommand{\cvjournalpubs}{Journal~Articles}
 \newcommand{\cvtechpubs}{Technical~Publications}
@@ -530,6 +531,23 @@
   \begin{cvlist}{\cvdatenone}{}\item%
     \begin{cvlist}{\cvdatewidth}{}}%
     {\end{cvlist}\end{cvlist}\cvsectend{\cvtravelgrant}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Grant environment
+%
+% usage: \grantitem[print]{date}%
+%           {Name/info}
+%           {everything else}
+%
+\newenvironment{grant}{%
+  \providecommand{\grantitem}[4][yes]{%
+    \ifthenelse{\equal{##1}{yes}}%
+    {\item[##2] \textsl{##3}\ifthenelse{\equal{##4}{}}{}{, ##4}}%
+    {\relax}}%
+  \cvsectstart{\cvgrant}%
+  \begin{cvlist}{\cvdatenone}{}\item%
+    \begin{cvlist}{\cvdatewidth}{}}%
+    {\end{cvlist}\end{cvlist}\cvsectend{\cvgrant}}%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
